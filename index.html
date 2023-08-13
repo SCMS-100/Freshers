@@ -3,7 +3,154 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display-swap');
+
+      @font-face {
+        font-family: 'shlop';
+        src: url(./SHLOP.ttf);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        /* scroll-behavior: smooth; */
+        overflow-x: hidden;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(#2b1055, #7597de);
+      }
+
+      header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 20;
+      }
+
+      header .logo {
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+        /* font-size: 2em; */
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      header ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      header ul li {
+        list-style: none;
+        margin-left: 20px;
+        text-decoration: none;
+      }
+
+      header ul li a {
+        text-decoration: none;
+        padding: 6px 15px;
+        color: #fff;
+        border-radius: 20px;
+      }
+
+      header ul li a:hover,
+      header ul li a.active {
+        background: #fff;
+        color: #2b1055;
+      }
+
+      section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        padding: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      section::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(to top, #1c0522, transparent);
+        z-index: 1000;
+      }
+
+      section img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+        /* max-width:100%;height:auto; */
+      }
+
+      section img#moon {
+        mix-blend-mode: screen;
+      }
+      section img#mountains_front {
+        z-index: 10;
+      }
+
+      #text {
+        position: absolute;
+        right: -350px;
+        color: #fff;
+        white-space: nowrap;
+        font-size: 7.5vw;
+        z-index: 9;
+        font-family: 'shlop', sans-serif;
+        letter-spacing: 2px;
+      }
+
+      #btn {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 30px;
+        border-radius: 40px;
+        background: #fff;
+        color: #2b1055;
+        font-size: 1.5em;
+        z-index: 9;
+        transform: translateY(100px);
+      }
+
+      .sec {
+        position: relative;
+        padding: 100px;
+        background: #1c0522;
+      }
+
+      .sec h2 {
+        font-size: 3.5em;
+        margin-bottom: 10px;
+        color: #fff;
+      }
+
+      .sec p {
+        font-size: 1.2em;
+        color: #fff;
+      }
+    </style>
     <title>BOOTHAKALAM</title>
   </head>
   <body>
@@ -17,14 +164,14 @@
       </ul>
     </header>
     <section>
-      <img src="./stars.png" id="stars" />
-      <img src="./moon.png" id="moon" />
-      <img src="./mountains_behind.png" id="mountains_behind" />
+      <img src="stars.png" id="stars" />
+      <img src="moon.png" id="moon" />
+      <img src="mountains_behind.png" id="mountains_behind" />
       <h2 id="text">BOOTHAKALAM</h2>
       <a href="#" id="btn">
         <div id="counter" class="counter">99:99:99:99</div>
       </a>
-      <img src="./mountains_front.png" id="mountains_front" />
+      <img src="mountains_front.png" id="mountains_front" />
     </section>
     <div class="sec" id="sec">
       <h2>August 1st 1:00pm</h2>

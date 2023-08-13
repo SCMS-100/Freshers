@@ -1,136 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
+*, *::after, *::before {
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.25rem;
 }
-::selection{
-  color: #fff;
-  background: #007bff;
+
+body {
+  background-color: #f2f1ed;
+  color: #de4848;
 }
-body{
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+
+.flip-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .2);
+  border-radius: .1em;
 }
-.wrapper{
-  max-width: 1100px;
-}
-.gallery{
-  display: flex;
-  flex-wrap: wrap;
-}
-.gallery .image{
-  padding: 7px;
-  width: calc(100% / 3);
-}
-.gallery .image span{
-  display: flex;
-  width: 100%;
+
+.top,
+.bottom,
+.flip-card .top-flip,
+.flip-card .bottom-flip {
+  height: .75em;
+  line-height: 1;
+  padding: .25em;
   overflow: hidden;
 }
-.gallery .image img{
-  width: 100%;
-  vertical-align: middle;
-  transition: all 0.3s ease;
-}
-.gallery .image:hover img{
-  transform: scale(1.1);
+
+.top,
+.flip-card .top-flip {
+  background-color: #f7f7f7;
+  border-top-right-radius: .1em;
+  border-top-left-radius: .1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.preview-box{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  background: #fff;
-  max-width: 700px;
-  width: 100%;
-  z-index: 5;
-  opacity: 0;
-  pointer-events: none;
-  border-radius: 3px;
-  padding: 0 5px 5px 5px;
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
-}
-.preview-box.show{
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
-  transition: all 0.3s ease;
-}
-.preview-box .details{
+.bottom,
+.flip-card .bottom-flip {
+  background-color: white;
   display: flex;
-  align-items: center;
-  padding: 12px 15px 12px 10px;
-  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom-right-radius: .1em;
+  border-bottom-left-radius: .1em;
 }
-.preview-box .details .title{
-  display: flex;
-  font-size: 18px;
-  font-weight: 400;
-}
-.details .title p{
-  margin: 0 5px;
-}
-.details .title p.current-img{
-  font-weight: 500;
-}
-.details .icon{
-  color: #007bff;
-  font-size: 20px;
-  cursor: pointer;
-}
-.preview-box .image-box{
-  display: flex;
-  width: 100%;
-  position: relative;
-}
-.image-box .slide{
+
+.flip-card .top-flip {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 30px;
-  cursor: pointer;
-  height: 50px;
-  width: 60px;
-  line-height: 50px;
-  text-align: center;
-  border-radius: 3px;
-}
-.slide.prev{
-  left: 0px;
-}
-.slide.next{
-  right: 0px;
-}
-.image-box img{
   width: 100%;
-  border-radius: 0 0 3px 3px;
-}
-.shadow{
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-  display: none;
-  background: rgba(0,0,0,0.45);
+  animation: flip-top 250ms ease-in;
+  transform-origin: bottom;
 }
 
-@media(max-width: 1000px){
-  .gallery .image{
-    width: calc(100% / 2);
+@keyframes flip-top {
+  100% {
+    transform: rotateX(90deg);
   }
 }
-@media(max-width: 600px){
-  .gallery .image{
-    width: 100%;
-    padding: 4px;
+
+.flip-card .bottom-flip {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  animation: flip-bottom 250ms ease-out 250ms;
+  transform-origin: top;
+  transform: rotateX(90deg);
+}
+
+@keyframes flip-bottom {
+  100% {
+    transform: rotateX(0deg);
   }
+}
+
+.container {
+  display: flex;
+  gap: .5em;
+  justify-content: center;
+}
+
+.container-segment {
+  display: flex;
+  flex-direction: column;
+  gap: .1em;
+  align-items: center;
+}
+
+.segment {
+  display: flex;
+  gap: .1em;
+}
+
+.segment-title {
+  font-size: 1rem;
 }

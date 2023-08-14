@@ -57,19 +57,15 @@
         list-style: none;
         margin-left: 20px;
         text-decoration: none;
+        overflow-y: hidden;
       }
 
-      header ul li a {
+      header ul li button {
         text-decoration: none;
         padding: 6px 15px;
-        color: #fff;
-        border-radius: 20px;
-      }
-
-      header ul li a:hover,
-      header ul li a.active {
         background: #fff;
         color: #2b1055;
+        border-radius: 40px;
       }
 
       section {
@@ -150,6 +146,37 @@
         font-size: 1.2em;
         color: #fff;
       }
+
+      .shake {
+        animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      }
+
+      .hide {
+        display: none;
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translate3d(-12px, 0, 0);
+        }
+
+        20%,
+        80% {
+          transform: translate3d(13px, 0, 0);
+        }
+
+        30%,
+        50%,
+        70% {
+          transform: translate3d(-20px, 0, 0);
+        }
+
+        40%,
+        60% {
+          transform: translate3d(20px, 0, 0);
+        }
+      }
     </style>
     <title>BOOTHAKALAM</title>
   </head>
@@ -157,12 +184,17 @@
     <header>
       <a href="#" class="logo">BOOTHAKALAM</a>
       <ul>
-        <li><a href="#" class="active">Home</a></li>
+        <li><button id="boo" onclick="booClick()">Boo</button></li>
         <!-- <li><a href="#">About</a></li> -->
         <!-- <li><a href="#">Work</a></li> -->
-        <li><a href="#">Contact</a></li>
+        <!-- <li><a href="#">Contact</a></li> -->
       </ul>
     </header>
+    <img
+      id="boo_img"
+      class="hide"
+      src="./boo.jpg"
+    />
     <section>
       <img src="stars.png" id="stars" />
       <img src="moon.png" id="moon" />
@@ -237,10 +269,10 @@
       </p>
     </div>
     <script>
+      // Setup
+
       const screenWidth = window.screen.width
       const screenHeight = window.screen.height
-
-      console.log(screenHeight)
 
       let stars = document.getElementById('stars')
       let moon = document.getElementById('moon')
@@ -258,6 +290,8 @@
       header.style.fontSize = screenWidth * 0.0009 + 'cm'
       header.style.padding = screenWidth * 0.08 + 'px'
       text.style.right = screenWidth * -0.6 + 'px'
+
+      // Parallax
 
       window.addEventListener('scroll', function () {
         let value = window.scrollY
@@ -298,6 +332,34 @@
         timetext += seconds % 10
 
         counter.textContent = timetext
+      }
+      // Boo
+      boo = document.getElementById('boo')
+      boo_img = document.getElementById('boo_img')
+      let boo_pressed = false
+      var audio = new Audio(
+        './audio.mp3',
+      )
+
+      function booClick() {
+        if (!boo_pressed) {
+          setTimeout(function () {
+            boo.style.background = '#ff0000'
+            setTimeout(function () {
+              audio.play()
+              boo_img.classList.remove('hide')
+              boo_img.style.width = screenWidth
+              boo_img.style.left = screenWidth / 3
+              boo_img.style.zIndex = 100000
+              boo_img.classList.add('shake')
+              setTimeout(function () {
+                boo_img.classList.add('hide')
+              }, 1000 * 2)
+            }, 1000 * 2)
+          }, 1000 * 4)
+        }
+
+        boo_pressed = true
       }
     </script>
   </body>

@@ -177,62 +177,310 @@
           transform: translate3d(20px, 0, 0);
         }
       }
+
+      /* Gallery */
+
+      .gallery {
+    display:grid;
+    place-content:center;
+    /* min-height:100vh; */
+    overflow:hidden;
+        background: #1c0522;
+    
+  }
+
+  .gallery::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(to top, #1c0522, transparent);
+        z-index: 1000;
+      }
+  .w {
+    width:100vmin;
+    height:100vmin;
+  }
+  
+  .ts {
+    width:100%; height:100%;
+    position:relative;
+    --barH:10%;/*active zone height = 100% - barH*/
+  }
+  
+  .t {
+    --w:20%;
+    display:block; width:var(--w); height:var(--barH);
+    position:absolute; bottom:0; left:var(--l);
+    transform-origin:top left;
+  }
+  
+  .t img {
+    display:block; width:100%; height:100%;
+    object-fit:cover;
+    transform:scale(0.8);
+    border-radius: 5px;
+  }
+  
+  [type="radio"] { 
+    display:none; 
+  }
+  
+  :checked + label.t {
+    left:0; bottom:var(--barH);
+    height:calc(100% - var(--barH));
+  }
+  
+  :checked + label.t img {
+    object-fit:contain;
+  }
+  
+  /* 
+  optional
+  */
+  
+  .ts {/*thumbnails bar*/
+    perspective:100px;
+    perspective-origin:center center;
+    transform-style:preserve-3d;
+    pointer-events:none;
+  }
+  
+  .ts:after {/*the plate*/
+    content:"";
+    display:block; width:100%; height:15px;
+    position:absolute; bottom:0;
+    background:linear-gradient(transparent 20%, rgba(0,0,0,0.1));
+    transform:rotateX(90deg)scaleX(1.2);
+    transform-origin:bottom center;
+  }
+  
+  :not(:checked) + .t {/*inactive labels*/
+    transform:translate3d(0, 0, -5px);
+    pointer-events:auto;
+  }
+  
+  :not(:checked) + .t:hover {
+    transform:translate3d(0, -7px, -5px);
+    box-shadow:0 30px 30px -25px rgba(0,0,0,0.3);
+    cursor:pointer;
+  }
+  
+  :not(:checked) + .t img {
+    transform:scale(0.9);/*create gaps*/
+  }
+  
+  :checked + .t {/*active label*/
+    box-shadow:0 0 0 transparent;
+    animation:anim 2s 1;
+    border-radius: 5px;
+  } @keyframes anim {
+    from { transform:rotateY(6deg)rotateX(3deg) }
+  }
+  
+  /* 
+  transitions
+  */
+  .t {/*active->inactive & hover->rest*/
+    transition:transform 0.5s, bottom 0.6s, left 0.6s, width 0.3s, box-shadow 1s;
+  }
+  .t:hover, :checked + .t {
+    transition:transform 0.5s, bottom 0.6s, left 0.6s, width 0.3s, box-shadow 0s;
+  }
+      
+  .w {
+    width:100vmin;
+    height:100vmin;
+  }
+  
+  .ts {
+    overflow: hidden;
+    width:100%; height:100%;
+    position:relative;
+    --barH:10%;/*active zone height = 100% - barH*/
+  }
+  
+  .t {
+    --w:20%;
+    display:block; width:var(--w); height:var(--barH);
+    position:absolute; bottom:0; left:var(--l);
+    transform-origin:top left;
+  }
+  
+  .t img {
+    display:block; width:100%; height:100%;
+    object-fit:cover;
+    transform:scale(0.8);
+    border-radius: 5px;
+  }
+  
+  [type="radio"] { 
+    display:none; 
+  }
+  
+  :checked + label.t {
+    left:0; bottom:var(--barH);
+    height:calc(100% - var(--barH));
+  }
+  
+  :checked + label.t img {
+    object-fit:contain;
+  }
+
+    .ts {/*thumbnails bar*/
+    perspective:100px;
+    perspective-origin:center center;
+    transform-style:preserve-3d;
+    pointer-events:none;
+  }
+  
+  .ts:after {/*the plate*/
+    content:"";
+    display:block; width:100%; height:15px;
+    position:absolute; bottom:0;
+    background:linear-gradient(transparent 20%, rgba(0,0,0,0.1));
+    transform:rotateX(90deg)scaleX(1.2);
+    transform-origin:bottom center;
+  }
+  
+  :not(:checked) + .t {/*inactive labels*/
+    transform:translate3d(0, 0, -5px);
+    pointer-events:auto;
+  }
+  
+  :not(:checked) + .t:hover {
+    transform:translate3d(0, -7px, -5px);
+    box-shadow:0 30px 30px -25px rgba(0,0,0,0.3);
+    cursor:pointer;
+  }
+  
+  :not(:checked) + .t img {
+    transform:scale(0.9);/*create gaps*/
+  }
+  
+  :checked + .t {/*active label*/
+    box-shadow:0 0 0 transparent;
+    animation:anim 2s 1;
+    border-radius: 5px;
+  } @keyframes anim {
+    from { transform:rotateY(6deg)rotateX(3deg) }
+  }
+  
+  /* 
+  transitions
+  */
+  .t {/*active->inactive & hover->rest*/
+    transition:transform 0.5s, bottom 0.6s, left 0.6s, width 0.3s, box-shadow 1s;
+  }
+  .t:hover, :checked + .t {
+    transition:transform 0.5s, bottom 0.6s, left 0.6s, width 0.3s, box-shadow 0s;
+  }
+
     </style>
     <title>BOOTHAKALAM</title>
   </head>
   <body>
-    <header>
-      <a href="#" class="logo">BOOTHAKALAM</a>
-      <ul>
-        <li><button id="boo" onclick="booClick()">Boo</button></li>
-        <!-- <li><a href="#">About</a></li> -->
-        <!-- <li><a href="#">Work</a></li> -->
-        <!-- <li><a href="#">Contact</a></li> -->
-      </ul>
-    </header>
-    <img
-      id="boo_img"
-      class="hide"
-      src="./boo.jpg"
-    />
-    <section>
-      <img src="stars.png" id="stars" />
-      <img src="moon.png" id="moon" />
-      <img src="mountains_behind.png" id="mountains_behind" />
-      <h2 id="text">BOOTHAKALAM</h2>
-      <a href="https://insta.openinapp.co/j6zm5" id="btn">
-        <div id="counter" class="counter">99:99:99:99</div>
-      </a>
-      <img src="mountains_front.png" id="mountains_front" />
-    </section>
-    <div class="sec" id="sec">
-      <h2>August 17th 1:00pm</h2>
-      <p>
-        🌟 Boothakalam: A Night of Horrors and Delight<br><br>
+    <div class="wrapper">
+      <header>
+        <a href="#" class="logo">BOOTHAKALAM</a>
+        <ul>
+          <li><button id="boo" onclick="booClick()">Boo</button></li>
+          <!-- <li><a href="#">About</a></li> -->
+          <!-- <li><a href="#">Work</a></li> -->
+          <!-- <li><a href="#">Contact</a></li> -->
+        </ul>
+      </header>
+      <section>
+        <img src="stars.png" id="stars" />
+        <img src="moon.png" id="moon" />
+        <img src="mountains_behind.png" id="mountains_behind" />
+        <h2 id="text">BOOTHAKALAM</h2>
+        <a href="https://insta.openinapp.co/j6zm5" id="btn">
+          <div id="counter" class="counter">99:99:99:99</div>
+        </a>
+        <img src="mountains_front.png" id="mountains_front" />
+      </section>
+      <div class="sec" id="sec">
+        <h2>August 17th 1:00pm</h2>
+        <p>
+          🌟 Boothakalam: A Night of Horrors and Delight
+          <br />
+          <br />
 
-🎉 Date: 17th August 2023<br>
-🕒 Time: 1:00 pm<br>
-📍 Venue: SCMS Block Seminar Hall<br><br>
+          🎉 Date: 17th August 2023
+          <br />
+          🕒 Time: 1:00 pm
+          <br />
+          📍 Venue: SCMS Block Seminar Hall
+          <br />
+          <br />
 
-🌙 Step into a realm of spine-tingling excitement and heart-pounding fun as the seniors of 2022 cordially invite you to Boothakalam - an unforgettable Freshers Party that will send shivers down your spine! 🌙
-<br><br>
-🕯️ Event Highlights:
-<br><br>
-🎵 Horror Grooves: Let loose on the dance floor as our DJ spins haunting beats that match the night's theme. Dance to the rhythm of the night and experience the thrill of the music.
-<br><br>
-🕶️ Haunted Maze Challenge: Navigate through a mysterious and spine-chilling maze that's bound to surprise you at every corner. Face your fears and emerge victorious!
-<br><br>
-🕺 Dance Off: The spotlight is on you! Showcase your dance moves in our dance-off . With eerie songs and electrifying moves, this is your chance to steal the show.
-<br><br>
-📸 Photo Booth: Capture the night's memories with friends at our themed photo booth. Pose with eerie props and take home snapshots that will remind you of this unforgettable night.
-<br><br>
-🎃 Dress Code: Embrace the horror theme with your spookiest attire. From ghouls to ghosts, monsters to mysteries, let your imagination run wild!
-<br><br>
-👻 Join Us for an Unforgettable Night! Boothakalam awaits, where fear and fun collide in the most thrilling way. Get ready for a night that will remain etched in your college memories forever.
-<br><br>
-Stay spooky,<br>
-The Senior Squad of 2022
-      </p>
+          🌙 Step into a realm of spine-tingling excitement and heart-pounding
+          fun as the seniors of 2022 cordially invite you to Boothakalam - an
+          unforgettable Freshers Party that will send shivers down your spine!
+          🌙
+          <br />
+          <br />
+          🕯️ Event Highlights:
+          <br />
+          <br />
+          🎵 Horror Grooves: Let loose on the dance floor as our DJ spins
+          haunting beats that match the night's theme. Dance to the rhythm of
+          the night and experience the thrill of the music.
+          <br />
+          <br />
+          🕶️ Haunted Maze Challenge: Navigate through a mysterious and
+          spine-chilling maze that's bound to surprise you at every corner. Face
+          your fears and emerge victorious!
+          <br />
+          <br />
+          🕺 Dance Off: The spotlight is on you! Showcase your dance moves in
+          our dance-off . With eerie songs and electrifying moves, this is your
+          chance to steal the show.
+          <br />
+          <br />
+          📸 Photo Booth: Capture the night's memories with friends at our
+          themed photo booth. Pose with eerie props and take home snapshots that
+          will remind you of this unforgettable night.
+          <br />
+          <br />
+          🎃 Dress Code: Embrace the horror theme with your spookiest attire.
+          From ghouls to ghosts, monsters to mysteries, let your imagination run
+          wild!
+          <br />
+          <br />
+          👻 Join Us for an Unforgettable Night! Boothakalam awaits, where fear
+          and fun collide in the most thrilling way. Get ready for a night that
+          will remain etched in your college memories forever.
+          <br />
+          <br />
+          Stay spooky,
+          <br />
+          The Senior Squad of 2022
+        </p>
+      </div>
+<div class="gallery">
+      <div class="w">
+        <div class="ts">
+          <input type="radio" id="c1" name="ts" checked="checked"/>
+          <label class="t" for="c1"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-1.JPG"/></label>
+          <input type="radio" id="c2" name="ts"/>
+          <label class="t" for="c2"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-2.JPG"/></label>
+          <input type="radio" id="c3" name="ts"/>
+          <label class="t" for="c3"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-3.JPG"/></label>
+          <input type="radio" id="c4" name="ts"/>
+          <label class="t" for="c4"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-4.JPG"/></label>
+          <input type="radio" id="c5" name="ts"/>
+          <label class="t" for="c5"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-5.JPG"/></label>
+          <input type="radio" id="c6" name="ts"/>
+          <label class="t" for="c6"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-6.JPG"/></label>
+          <input type="radio" id="c7" name="ts"/>
+          <label class="t" for="c7"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-7.JPG"/></label>
+          <input type="radio" id="c8" name="ts"/>
+          <label class="t" for="c8"><img src="https://raw.githubusercontent.com/SCMS-100/Freshers/main/images/img-8.JPG"/></label>
+        </div>
+      </div>
     </div>
     <script>
       // Setup
@@ -240,6 +488,7 @@ The Senior Squad of 2022
       const screenWidth = window.screen.width
       const screenHeight = window.screen.height
 
+      body = document.querySelector('body')
       let stars = document.getElementById('stars')
       let moon = document.getElementById('moon')
       let mountains_behind = document.getElementById('mountains_behind')
@@ -303,11 +552,10 @@ The Senior Squad of 2022
       boo = document.getElementById('boo')
       boo_img = document.getElementById('boo_img')
       let boo_pressed = false
-      var audio = new Audio(
-        './audio.mp3',
-      )
+      var audio = new Audio('./audio.mp3')
 
       function booClick() {
+        return
         if (!boo_pressed) {
           setTimeout(function () {
             boo.style.background = '#ff0000'
@@ -321,12 +569,36 @@ The Senior Squad of 2022
               setTimeout(function () {
                 boo_img.classList.add('hide')
               }, 1000 * 2)
-            }, 1000 * 2)
-          }, 1000 * 4)
+            }, 1 * 2)
+          }, 1 * 4)
         }
 
         boo_pressed = true
       }
+
+      // Gallery
+      const els = document.querySelectorAll("[type='radio']");
+for (const el of els)
+  el.addEventListener("input", e => reorder(e.target, els));
+reorder(els[0], els);
+
+function reorder(targetEl, els) {
+  const nItems = els.length;
+  let processedUncheck = 0;
+  for (const el of els) {
+    const containerEl = el.nextElementSibling;
+    if (el === targetEl) {//checked radio
+      containerEl.style.setProperty("--w", "100%");
+      containerEl.style.setProperty("--l", "0");
+    }
+    else {//unchecked radios
+      containerEl.style.setProperty("--w", `${100/(nItems-1)}%`);
+      containerEl.style.setProperty("--l", `${processedUncheck * 100/(nItems-1)}%`);
+      processedUncheck += 1;
+    }
+  }
+}
+
     </script>
   </body>
 </html>
